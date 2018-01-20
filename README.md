@@ -9,6 +9,8 @@ This tool enables you to open the KUP file from Kuriimu, translates the "Origina
 # How does it work
 Execute the executable with parameters and it will do the work for you.
 
+If you want to use the english translation, it will Google Translate. This process is far slower than the romaji procedure. So beware.
+
 ## Parameters
 -file => Setting the target filename. Example: -file:"C:\temp\XYZ.kup" **Required**
 
