@@ -24,7 +24,7 @@ namespace SimpleKupTranslator
                 return;
             }
 
-            string[] argsNew = string.Join(" ",args).Split(new string[] {"-"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] argsNew = string.Join(" ",args).Split(new string[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
 
 
             foreach(var arg in argsNew)
