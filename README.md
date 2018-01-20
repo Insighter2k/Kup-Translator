@@ -7,7 +7,7 @@ This tool enables you to open the KUP file from Kuriimu, translates the "Origina
 - [x] .NET C# Language Version 7.1+
 
 # How does it work
-Execute the executable with parameters and you it will do the work for you.
+Execute the executable with parameters and it will do the work for you.
 
 ## Parameters
 -file => Setting the target filename. Example: -file:"C:\temp\XYZ.kup" **Required**
