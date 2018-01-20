@@ -22,4 +22,5 @@ Full example: SimpleKupTranslator.exe -file:"C:\temp\test.kup" -lng:ro -from:120
 
 # Links
 Kuriimu -> https://github.com/IcySon55/Kuriimu
+
 Kasaki Wrapper -> https://github.com/linguanostra/Kakasi.NET
