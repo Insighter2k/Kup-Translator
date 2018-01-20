@@ -22,7 +22,7 @@ If you want to use the english translation, it will Google Translate. This proce
 
 Full example: SimpleKupTranslator.exe /file:"C:\temp\test.kup" /lng:ro /from:1200 /to:1250
 
-##Log Files
+## Log Files
 A Log file is being created in the current directory where application is executed.
 Format: yyyy-MM-dd_hhmmss.log
 
