@@ -34,12 +34,12 @@ namespace SimpleKupTranslator
                     if (arg.StartsWith("file:"))
                         filepath = arg.Split(new string[]{"file:"}, StringSplitOptions.None)[1];
                     if (arg.StartsWith("lng:"))
-                        language = arg.Split(new string[] { "lng:" }, StringSplitOptions.None)[1];
+                        language = arg.Split(new string[] { "lng:" }, StringSplitOptions.None)[1].Trim();
                     if (arg.StartsWith("from:"))
                         from = Convert.ToInt32(
-                            arg.Split(new string[] { "from:" }, StringSplitOptions.None)[1]);
+                            arg.Split(new string[] { "from:" }, StringSplitOptions.None)[1].Trim());
                     if (arg.StartsWith("to:"))
-                        to = Convert.ToInt32(arg.Split(new string[] { "to:" }, StringSplitOptions.None)[1]);
+                        to = Convert.ToInt32(arg.Split(new string[] { "to:" }, StringSplitOptions.None)[1].Trim());
                 }
 
                 catch (Exception ex)
