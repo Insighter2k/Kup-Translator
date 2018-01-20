@@ -12,15 +12,15 @@ Execute the executable with parameters and it will do the work for you.
 If you want to use the english translation, it will Google Translate. This process is far slower than the romaji procedure. So beware.
 
 ## Parameters
--file => Setting the target filename. Example: -file:"C:\temp\XYZ.kup" **Required**
+/file => Setting the target filename. Example: /file:"C:\temp\XYZ.kup" **Required**
 
--lng => Setting the target language. Example: -lng:ro (Romaji) or -lng:en (English) **Required**
+/lng => Setting the target language. Example: /lng:ro (Romaji) or /lng:en (English) **Required**
 
--from => In each KUP files, there are names in this format "textXYZ". You can set the number from which the tool shall start the translation. Example: -from:2000 **Optional**
+/from => In each KUP files, there are names in this format "textXYZ". You can set the number from which the tool shall start the translation. Example: /from:2000 **Optional**
 
--to => In each KUP files, there are names in this format "textXYZ". You can set the number until which the tool shall do the translation. Example: -to:2100 **Optional**
+/to => In each KUP files, there are names in this format "textXYZ". You can set the number until which the tool shall do the translation. Example: /to:2100 **Optional**
 
-Full example: SimpleKupTranslator.exe -file:"C:\temp\test.kup" -lng:ro -from:1200 -to:1250
+Full example: SimpleKupTranslator.exe /file:"C:\temp\test.kup" /lng:ro /from:1200 /to:1250
 
 # Links
 Kuriimu -> https://github.com/IcySon55/Kuriimu
