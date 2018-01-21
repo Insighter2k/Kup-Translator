@@ -1,4 +1,4 @@
-# Simple-Kup-Translator
+# Kup-Translator
 This tool enables you to open the KUP file from Kuriimu, translates the "OriginalText" and sets the "EditedText" to the target language.
 
 # Pre-Requisites
