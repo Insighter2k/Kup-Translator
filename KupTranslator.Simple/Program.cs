@@ -14,6 +14,7 @@ namespace KupTranslator.Simple
         {
             string filepath = string.Empty;
             string language = string.Empty;
+            string wikia = string.Empty;
             int from = -1;
             int to = -1;
 
@@ -31,7 +32,7 @@ namespace KupTranslator.Simple
                 try
                 {
                     if (arg.StartsWith("file:"))
-                        filepath = arg.Split(new string[]{"file:"}, StringSplitOptions.None)[1];
+                        filepath = arg.Split(new string[] {"file:"}, StringSplitOptions.None)[1];
                     if (arg.StartsWith("lng:"))
                         language = arg.Split(new string[] { "lng:" }, StringSplitOptions.None)[1].Trim();
                     if (arg.StartsWith("from:"))
@@ -39,6 +40,8 @@ namespace KupTranslator.Simple
                             arg.Split(new string[] { "from:" }, StringSplitOptions.None)[1].Trim());
                     if (arg.StartsWith("to:"))
                         to = Convert.ToInt32(arg.Split(new string[] { "to:" }, StringSplitOptions.None)[1].Trim());
+                    if (arg.StartsWith("wikia:"))
+                        wikia = arg.Split(new string[] { "wikia:" }, StringSplitOptions.None)[1];
                 }
 
                 catch (Exception ex)
@@ -62,7 +65,7 @@ namespace KupTranslator.Simple
 
             try
             {
-                await Shared.Functions.Translate.Text(filepath, language, from, to);
+                await Shared.Functions.Translate.Text(filepath, wikia, language, from, to);
             }
 
             catch (Exception ex)
