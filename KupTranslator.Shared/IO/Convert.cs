@@ -5,12 +5,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using KupTranslator.Shared.Models;
 
-namespace SimpleKupTranslator.IO
-{
-    public class Convert
+namespace KupTranslator.Shared.IO
+{public class Convert
     {
-        private static string[] KakasiParamsHelper(Models.Settings settings)
+        private static string[] KakasiParamsHelper(KakasiSettings settings)
         {
             List<string> list = new List<string>();
             list.Add("kakasi");
@@ -30,26 +30,26 @@ namespace SimpleKupTranslator.IO
             return list.ToArray();
         }
 
-        public static Task<List<Kontract.Entry>> ToRomaji(List<Kontract.Entry> entries, Models.Settings settings)
+        public static Task<List<Kontract.Entry>> ToRomaji(List<Kontract.Entry> entries, KakasiSettings settings)
         {
             Kakasi.NET.Interop.KakasiLib.Init();
             var kakasiParams = KakasiParamsHelper(settings);
             Kakasi.NET.Interop.KakasiLib.SetParams(kakasiParams);
 
             var outputKakasiParams = string.Join(" ", kakasiParams);
-            IO.Write.Log("Romaji settings:" + outputKakasiParams);
+            Write.Log("Romaji settings:" + outputKakasiParams);
 
             foreach (var entry in entries)
             {
                 try
                 {
                     entry.EditedText = Kakasi.NET.Interop.KakasiLib.DoKakasi(entry.OriginalText);
-                    IO.Write.Log($"{entry.OriginalText} => {entry.EditedText}");
+                    Write.Log($"{entry.OriginalText} => {entry.EditedText}");
                 }
 
                 catch(Exception ex)
                 {
-                    IO.Write.Log(ex.ToString());
+                    Write.Log(ex.ToString());
                 }
             }
            
@@ -86,12 +86,12 @@ namespace SimpleKupTranslator.IO
                     MatchCollection matchCollection = regEx.Matches(result);
 
                     entry.EditedText = matchCollection[0].Value.Split(',')[0];
-                    IO.Write.Log($"{entry.OriginalText} => {entry.EditedText}");
+                    Write.Log($"{entry.OriginalText} => {entry.EditedText}");
                 }
 
                 catch(Exception ex)
                 {
-                    IO.Write.Log(ex.ToString());
+                    Write.Log(ex.ToString());
                 }
             }
             return Task.FromResult(entries);

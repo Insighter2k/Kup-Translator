@@ -6,11 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace SimpleKupTranslator
+namespace KupTranslator.Simple
 {
     class Program
     {
-        public static DateTime LogDateTime;
         static async Task Main(string[] args)
         {
             string filepath = string.Empty;
@@ -63,41 +62,16 @@ namespace SimpleKupTranslator
 
             try
             {
-                LogDateTime = System.DateTime.Now;
-                IO.Write.Log($"Filepath: {filepath}");
-                IO.Write.Log($"Language: {language}");
-
-                var settings = new Models.Settings();
-                IO.Write.Log("Loading KUP file");
-                var kup = Kontract.KUP.Load(filepath);
-
-                int kupEntryCount = kup.Count;
-                if (from == -1) from = 0;
-                if (to == -1) to = kupEntryCount;
-
-                IO.Write.Log($"From Count: {from}");
-                IO.Write.Log($"To Count: {to}");
-
-                var entries = kup.Entries.Where(x => System.Convert.ToInt32(x.Name.Remove(0, 4)) >= from && System.Convert.ToInt32(x.Name.Remove(0, 4)) <= to).ToList();
-
-                IO.Write.Log("Begin translation");
-                if (language == "ro")
-                    await IO.Convert.ToRomaji(entries, settings);
-                if(language == "en")
-                    await IO.Convert.ToEnglish(entries);
-
-                IO.Write.Log("Saving KUP file");
-                kup.Save(filepath);
+                await Shared.Functions.Translate.Text(filepath, language, from, to);
             }
 
             catch (Exception ex)
             {
-                IO.Write.Log(ex.ToString());
+                Shared.IO.Write.Log(ex.ToString());
             }
 
             Console.WriteLine("Press a key to exit.");
             Console.ReadLine();
-
         }
     }
 }

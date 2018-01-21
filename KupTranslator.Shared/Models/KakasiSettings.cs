@@ -1,6 +1,6 @@
-﻿namespace SimpleKupTranslator.Models
+﻿namespace KupTranslator.Shared.Models
 {
-    public class Settings
+    public class KakasiSettings
     {
         public bool EnableKanjiToAscii => true;
         public bool EnableHiraganaToAscii => true;
