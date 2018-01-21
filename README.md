@@ -20,7 +20,7 @@ If you want to use the english translation, it will Google Translate. This proce
 
 /to => In each KUP files, there are names in this format "textXYZ". You can set the number until which the tool shall do the translation. Example: /to:2100 **Optional**
 
-Full example: SimpleKupTranslator.exe /file:"C:\temp\test.kup" /lng:ro /from:1200 /to:1250
+Full example: KupTranslator.Simple.exe /file:"C:\temp\test.kup" /lng:ro /from:1200 /to:1250
 
 ## Log Files
 A Log file is being created in the current directory where application is executed.
