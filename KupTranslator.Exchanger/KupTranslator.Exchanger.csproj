@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{96CA3E87-F971-4040-ACAC-96E340488426}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KupTranslator.Shared</RootNamespace>
-    <AssemblyName>KupTranslator.Shared</AssemblyName>
+    <ProjectGuid>{921AA5C5-AEF8-48F8-AC23-ADD6A557A947}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>KupTranslator.Exchanger</RootNamespace>
+    <AssemblyName>KupTranslator.Exchanger</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,8 +22,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,7 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,24 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions\Exchange.cs" />
-    <Compile Include="Functions\Translate.cs" />
-    <Compile Include="IO\Convert.cs" />
-    <Compile Include="IO\Read.cs" />
-    <Compile Include="IO\Write.cs" />
-    <Compile Include="Models\NameExchange.cs" />
-    <Compile Include="Models\KakasiSettings.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KupTranslator.Shared\KupTranslator.Shared.csproj">
+      <Project>{96CA3E87-F971-4040-ACAC-96E340488426}</Project>
+      <Name>KupTranslator.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WikiaCSharpWrapper\WikiaCSharpWrapper.csproj">
       <Project>{0770da6e-1d9b-4d58-8b9f-a89fde84e84c}</Project>
       <Name>WikiaCSharpWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\tempBackup\3ds\Tools\GodHand-master\Kakasi.Net\Kakasi.NET.Interop\Kakasi.NET.Interop.csproj">
-      <Project>{67f3daa6-417d-4f5d-81c4-a191b04f917b}</Project>
-      <Name>Kakasi.NET.Interop</Name>
     </ProjectReference>
     <ProjectReference Include="D:\tempBackup\3ds\Tools\Kuriimu-master\src\Kontract\Kontract.csproj">
       <Project>{51e474f7-1497-4c30-bc18-c357c884b8b2}</Project>

@@ -7,6 +7,8 @@ namespace WikiaCSharpWrapper
 {
     public class Client
     {
+
+
         public static Message<Models.API.RootObject> RequestValuesFromWiki(string wikiaName, string value, bool autoLatinToKana)
         {
             Message<RootObject> message = new Message<RootObject>();
@@ -15,7 +17,8 @@ namespace WikiaCSharpWrapper
             {
                 if (!autoLatinToKana) value = $"\"{value}\"";
 
-                var url = $"http://{wikiaName}.wikia.com/api/v1/Search/List?query={value}&minArticleQuality=0&batch=1&namespaces=0";
+                var url =
+                    $"http://{wikiaName}.wikia.com/api/v1/Search/List?query={value}&&limit=100&minArticleQuality=0&batch=1&namespaces=0";
 
                 WebClient webClient = new WebClient();
                 webClient.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0");
@@ -29,7 +32,7 @@ namespace WikiaCSharpWrapper
 
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+
             }
 
             return message;

@@ -17,36 +17,36 @@ namespace KupTranslator.Shared.Functions
         
         private static KakasiSettings _kakasiSettings;
 
-        public static async Task Text(string filepath, string wikia, string language, int from, int to)
+        public static async Task JapaneseToReference(string filepath, string wikia, string language, int from, int to)
         {
             Settings.LogTime = DateTime.Now;
-            IO.Write.Log($"Filepath: {filepath}");
-            IO.Write.Log($"Wikia: {wikia}");
-            IO.Write.Log($"Language: {language}");
+            IO.Write.Log($"Filepath: {filepath}", true);
+            IO.Write.Log($"Wikia: {wikia}", true);
+            IO.Write.Log($"Language: {language}", true);
 
             if (language == "ro")
             {
                 _kakasiSettings = new KakasiSettings();
-                Write.Log("Romaji settings:" + string.Join(" ", IO.Convert.KakasiParamsHelper(_kakasiSettings)));
+                Write.Log("Romaji settings:" + string.Join(" ", IO.Convert.KakasiParamsHelper(_kakasiSettings)), true);
                 Kakasi.NET.Interop.KakasiLib.Init();
             }
 
-            IO.Write.Log("Loading KUP file");
+            IO.Write.Log("Loading KUP file", true);
             var kup = Kontract.KUP.Load(filepath);
 
             int kupEntryCount = kup.Count;
             if (from == -1) from = 0;
             if (to == -1) to = kupEntryCount;
 
-            IO.Write.Log($"From Count: {from}");
-            IO.Write.Log($"To Count: {to}");
+            IO.Write.Log($"From Count: {from}", true);
+            IO.Write.Log($"To Count: {to}", true);
 
             var entries = kup.Entries.Where(x =>
                 Convert.ToInt32(x.Name.Remove(0, 4)) >= from && Convert.ToInt32(x.Name.Remove(0, 4)) <= to).ToList();
 
             List<Entry> tempEntries = new List<Entry>();
 
-            IO.Write.Log("Begin translation");
+            IO.Write.Log("Begin translation", true);
 
             foreach (var entry in entries)
             {
@@ -111,7 +111,7 @@ namespace KupTranslator.Shared.Functions
                 Write.Log($"{entry.OriginalText} => {entry.EditedText}");
             }
 
-            Write.Log($"Translating now (the missing entries) to {language}");
+            Write.Log($"Translating now (the missing entries) to {language}", true);
             switch (language)
             {
                 case "ro":
@@ -139,8 +139,38 @@ namespace KupTranslator.Shared.Functions
                 }
             }
 
-            IO.Write.Log("Saving KUP file");
+            IO.Write.Log("Saving KUP file", true);
             kup.Save(filepath);
+        }
+
+        public static NameExchange OriginalToReference(string wikia, NameExchange name)
+        {
+            var wikiaResult = WikiaCSharpWrapper.Client.RequestValuesFromWiki(wikia, name.OriginalName, false);
+            if (wikiaResult.Result != null)
+            {
+                foreach (var item in wikiaResult.Result.items)
+                {
+                    var matches = regExSpanMatcher.Matches(item.snippet);
+
+                    var tempMatchVariable = string.Empty;
+                    foreach (Match match in matches)
+                    {
+                        if (tempMatchVariable != string.Empty) tempMatchVariable = tempMatchVariable + " ";
+                        tempMatchVariable = tempMatchVariable + match.Value.Split('<')[0];
+                    }
+
+                    var entryCount = name.OriginalName.Split(' ').Length;
+
+                    if (matches.Count == entryCount && tempMatchVariable == name.OriginalName)
+                    {
+                        name.ReferenceName = item.title;
+                        name.ReferenceNameWordList = name.ReferenceName.Split(' ').ToList();
+                        break;
+                    }
+                }
+            }
+
+            return name;
         }
     }
 }

@@ -53,7 +53,7 @@ namespace KupTranslator.Simple
 
             if (filepath == string.Empty)
             {
-                Console.WriteLine("Filepath could not been set.");
+                Console.WriteLine("Filepath has not been set.");
                 return;
             }
 
@@ -65,7 +65,7 @@ namespace KupTranslator.Simple
 
             try
             {
-                await Shared.Functions.Translate.Text(filepath, wikia, language, from, to);
+                await Shared.Functions.Translate.JapaneseToReference(filepath, wikia, language, from, to);
             }
 
             catch (Exception ex)
