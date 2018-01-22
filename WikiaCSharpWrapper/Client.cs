@@ -29,7 +29,7 @@ namespace WikiaCSharpWrapper
 
             catch (Exception ex)
             {
-                
+                Console.WriteLine(ex);
             }
 
             return message;

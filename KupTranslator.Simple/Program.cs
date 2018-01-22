@@ -41,7 +41,7 @@ namespace KupTranslator.Simple
                     if (arg.StartsWith("to:"))
                         to = Convert.ToInt32(arg.Split(new string[] { "to:" }, StringSplitOptions.None)[1].Trim());
                     if (arg.StartsWith("wikia:"))
-                        wikia = arg.Split(new string[] { "wikia:" }, StringSplitOptions.None)[1];
+                        wikia = arg.Split(new string[] { "wikia:" }, StringSplitOptions.None)[1].Trim();
                 }
 
                 catch (Exception ex)

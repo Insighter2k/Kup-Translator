@@ -30,16 +30,18 @@ namespace KupTranslator.Shared.IO
             return list.ToArray();
         }
 
-        public static Task<Kontract.Entry> ToRomaji(Kontract.Entry entry, KakasiSettings settings)
+        public static Task<List<Kontract.Entry>> ToRomaji(List<Kontract.Entry> entries, KakasiSettings settings)
         {
+            Kakasi.NET.Interop.KakasiLib.Init();
             var kakasiParams = KakasiParamsHelper(settings);
             Kakasi.NET.Interop.KakasiLib.SetParams(kakasiParams);
 
-            var outputKakasiParams = string.Join(" ", kakasiParams);
-
             try
             {
-                entry.EditedText = Kakasi.NET.Interop.KakasiLib.DoKakasi(entry.OriginalText);
+                foreach (var entry in entries)
+                {
+                    entry.EditedText = Kakasi.NET.Interop.KakasiLib.DoKakasi(entry.OriginalText);
+                }
             }
 
             catch (Exception ex)
@@ -47,35 +49,43 @@ namespace KupTranslator.Shared.IO
                 Write.Log(ex.ToString());
             }
 
-            return Task.FromResult(entry);
+            Kakasi.NET.Interop.KakasiLib.Dispose();
+
+            return Task.FromResult(entries);
         }
 
         private static Regex regEx = new Regex("\\[\\\"(.+?)\\\"\\]", RegexOptions.Compiled);
 
-        public static Task<Kontract.Entry> ToEnglish(Kontract.Entry entry)
+      
+        public static Task<List<Kontract.Entry>> ToEnglish(List<Kontract.Entry> entries)
         {
             try
             {
-                string requestValue = entry.OriginalText;
+                foreach (var entry in entries)
+                {
+                    string requestValue = entry.OriginalText;
 
-                if (requestValue.Contains("\\")) requestValue = HttpUtility.UrlEncode(requestValue);
-                var url =
-                    $"https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=en&dt=t&q={requestValue}";
+                    if (requestValue.Contains("\\")) requestValue = HttpUtility.UrlEncode(requestValue);
+                    var url =
+                        $"https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=en&dt=t&q={requestValue}";
 
-                WebClient webClient = new WebClient();
-                webClient.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 " +
-                                                    "(KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
+                    WebClient webClient = new WebClient();
+                    webClient.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 " +
+                                                        "(KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
 
-                webClient.Encoding = Encoding.UTF8;
+                    webClient.Encoding = Encoding.UTF8;
 
-                var result = webClient.DownloadString(url);
-                result = result.Replace(",null,null,3", "");
-                result = result.Replace(",null,\"ja\"", "");
-                result = result.Replace("\\n", "");
+                    var result = webClient.DownloadString(url);
+                    result = result.Replace(",null,null,3", "");
+                    result = result.Replace(",null,\"ja\"", "");
+                    result = result.Replace("\\n", "");
 
-                MatchCollection matchCollection = regEx.Matches(result);
+                    MatchCollection matchCollection = regEx.Matches(result);
 
-                entry.EditedText = matchCollection[0].Value.Split(',')[0];
+                    entry.EditedText = matchCollection[0].Value.Split(',')[0];
+                }
+
+                
             }
 
             catch (Exception ex)
@@ -83,7 +93,7 @@ namespace KupTranslator.Shared.IO
                 Write.Log(ex.ToString());
             }
 
-            return Task.FromResult(entry);
+            return Task.FromResult(entries);
         }
     }
 }

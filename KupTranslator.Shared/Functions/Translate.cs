@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Kontract;
 using KupTranslator.Shared.IO;
 using KupTranslator.Shared.Models;
 using Convert = System.Convert;
@@ -13,6 +14,7 @@ namespace KupTranslator.Shared.Functions
     public class Translate
     {
         private static Regex regExSpanMatcher = new Regex(@"(\s*\w*([^<])<\/span>)", RegexOptions.Compiled);
+        
         private static KakasiSettings _kakasiSettings;
 
         public static async Task Text(string filepath, string wikia, string language, int from, int to)
@@ -41,6 +43,8 @@ namespace KupTranslator.Shared.Functions
 
             var entries = kup.Entries.Where(x =>
                 Convert.ToInt32(x.Name.Remove(0, 4)) >= from && Convert.ToInt32(x.Name.Remove(0, 4)) <= to).ToList();
+
+            List<Entry> tempEntries = new List<Entry>();
 
             IO.Write.Log("Begin translation");
 
@@ -82,42 +86,58 @@ namespace KupTranslator.Shared.Functions
                                 break;
                             }
 
-                            else
+                            var tempMatchVariable = string.Empty;
+                            foreach (Match match in matches)
                             {
-                               var tempMatchVariable = string.Empty;
-                               foreach(Match match in matches)
-                               {
-                                   tempMatchVariable = tempMatchVariable + match.Value.Split('<')[0];
-                               }
-
-                                if (tempMatchVariable == textOri)
-                                {
-                                    entry.EditedText = item.title;
-                                    isChanged = true;
-                                    break;
-                                }
+                                tempMatchVariable = tempMatchVariable + match.Value.Split('<')[0];
                             }
+
+                            if (tempMatchVariable == textOri)
+                            {
+                                entry.EditedText = item.title;
+                                isChanged = true;
+                                break;
+                            }
+
                         }
                     }
                 }
 
                 if (!isChanged)
                 {
-                    switch (language)
-                    {
-                        case "ro":
-                            await IO.Convert.ToRomaji(entry, _kakasiSettings);
-                            break;
-                        case "en":
-                            await IO.Convert.ToEnglish(entry);
-                            break;
-                    }
+                    tempEntries.Add(entry);
                 }
 
                 Write.Log($"{entry.OriginalText} => {entry.EditedText}");
             }
 
-            if (language == "ro") Kakasi.NET.Interop.KakasiLib.Dispose();
+            Write.Log($"Translating now (the missing entries) to {language}");
+            switch (language)
+            {
+                case "ro":
+                    tempEntries = await IO.Convert.ToRomaji(tempEntries, _kakasiSettings);
+                   
+                    break;
+                case "en":
+                    tempEntries = await IO.Convert.ToEnglish(tempEntries);
+                    break;
+            }
+
+            if (tempEntries.Count > 0)
+            {
+                foreach (var changedItem in tempEntries)
+                {
+                    foreach (var entry in entries)
+                    {
+                        if (entry.Name == changedItem.Name)
+                        {
+                            entry.EditedText = changedItem.EditedText;
+                            Write.Log($"{entry.OriginalText} => {entry.EditedText}");
+                            break;
+                        }
+                    }
+                }
+            }
 
             IO.Write.Log("Saving KUP file");
             kup.Save(filepath);

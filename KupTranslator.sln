@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KupTranslator.Shared", "Kup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiaCSharpWrapper", "WikiaCSharpWrapper\WikiaCSharpWrapper.csproj", "{0770DA6E-1D9B-4D58-8B9F-A89FDE84E84C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KupTranslator.Exchanger", "KupTranslator.Exchanger\KupTranslator.Exchanger.csproj", "{921AA5C5-AEF8-48F8-AC23-ADD6A557A947}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0770DA6E-1D9B-4D58-8B9F-A89FDE84E84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0770DA6E-1D9B-4D58-8B9F-A89FDE84E84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0770DA6E-1D9B-4D58-8B9F-A89FDE84E84C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921AA5C5-AEF8-48F8-AC23-ADD6A557A947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921AA5C5-AEF8-48F8-AC23-ADD6A557A947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921AA5C5-AEF8-48F8-AC23-ADD6A557A947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921AA5C5-AEF8-48F8-AC23-ADD6A557A947}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
