@@ -52,7 +52,7 @@ Kup-Entry	English Name	Length	Original Name	Length	Check Charlength
 
 /rc => Recursive check. If you have already translated a batch of fullnames in a kup-file, there is possibly a nickname version which you can link to that translation. It will recursively check if a similar entry exists and puts the original name in. Example: /rc:true **Optional**
 
-/mbl => You can enable "Match ByteLength". That way, the original names will be auto-cut to match the length of their english names. For example "Matsukaze Tenma" is too long for, so it should fit the respective bytelength, than it will cut it to "Tenma". Example: /mbl:true **Optional**
+/mbl => You can enable "Match ByteLength". That way, the original names will be auto-cut to match the length of their english names. For example "Matsukaze Tenma" is too long, so it should fit the respective bytelength, tean it will cut it to "Tenma". Example: /mbl:true **Optional**
 
 ## Log Files
 A Log file is being created in the current directory, log directory, where application is executed.
