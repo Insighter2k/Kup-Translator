@@ -14,16 +14,18 @@ If you want to use the english translation, it will Google Translate. This proce
 ## Parameters
 /file => Setting the target filename. Example: /file:"C:\temp\XYZ.kup" **Required**
 
-/lng => Setting the target language. Example: /lng:ro (Romaji) or /lng:en (English) **Required**
+/wikia => Set the wikia cross reference. Example /wikia:"inazuma-eleven" **Optional**
+
+/lng => Setting the target language if wikia is not given or cross reference is not successful. Example: /lng:ro (Romaji) or /lng:en (English) **Required**
 
 /from => In each KUP files, there are names in this format "textXYZ". You can set the number from which the tool shall start the translation. Example: /from:2000 **Optional**
 
 /to => In each KUP files, there are names in this format "textXYZ". You can set the number until which the tool shall do the translation. Example: /to:2100 **Optional**
 
-Full example: KupTranslator.Simple.exe /file:"C:\temp\test.kup" /lng:ro /from:1200 /to:1250
+Full example: KupTranslator.Simple.exe /file:"C:\temp\test.kup" /wikia:"inazuma-eleven" /lng:ro /from:1200 /to:1250
 
 ## Log Files
-A Log file is being created in the current directory where application is executed.
+A Log file is being created in the current directory, log directory, where application is executed.
 Format: yyyy-MM-dd_hhmmss.log
 
 # Links
