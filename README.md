@@ -34,3 +34,5 @@ Format: yyyy-MM-dd_hhmmss.log
 Kuriimu -> https://github.com/IcySon55/Kuriimu
 
 Kakasi.NET Wrapper -> https://github.com/linguanostra/Kakasi.NET
+
+WikiaCSharpWrapper -> https://github.com/Insighter2k/WikiaCSharpWrapper
