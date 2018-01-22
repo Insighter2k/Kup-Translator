@@ -16,12 +16,6 @@ namespace KupTranslator.Exchanger
         
         static async Task Main(string[] args)
         {
-            //args = new string[] { @"/sf:D:\tempBackup\3ds\inazuma eleven go light\chara_text_en.cfg.bin.kup", "/wikia:inazuma-eleven", "/mbl:true", "/rc:true"};
-            //string filepath =
-            //    @"D:\tempBackup\3ds\inazuma eleven go light\chara_text_en.cfg.bin.kup";
-            //string targetFile = @"D:\tempBackup\3ds\inazuma eleven go light\chara_text_en.cfg.bin";
-            //string targetFile2 = @"D:\tempBackup\3ds\inazuma eleven go light\chara_text_en.cfg.bin2";
-
             //byte[] targetFileByteArray = Shared.IO.Read.FileToByteArray(targetFile);
             //targetFileByteArray = Shared.Functions.Exchange.BytesFromTargetFile(NameExchangeList, targetFileByteArray);
             //Shared.IO.Write.ByteArrayToFile(targetFileByteArray, targetFile2);
