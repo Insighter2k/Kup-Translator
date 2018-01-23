@@ -65,6 +65,7 @@ namespace KupTranslator.Simple
 
             try
             {
+                Shared.Functions.Check.DirectoriesExist();
                 await Shared.Functions.Translate.JapaneseToReference(filepath, wikia, language, from, to);
             }
 

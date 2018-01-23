@@ -59,10 +59,6 @@
       <Project>{0770da6e-1d9b-4d58-8b9f-a89fde84e84c}</Project>
       <Name>WikiaCSharpWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\tempBackup\3ds\Tools\Kuriimu-master\src\Kontract\Kontract.csproj">
-      <Project>{51e474f7-1497-4c30-bc18-c357c884b8b2}</Project>
-      <Name>Kontract</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

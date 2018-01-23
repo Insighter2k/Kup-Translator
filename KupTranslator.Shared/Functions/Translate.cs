@@ -140,7 +140,8 @@ namespace KupTranslator.Shared.Functions
             }
 
             IO.Write.Log("Saving KUP file", true);
-            kup.Save(filepath);
+            kup.Save(Settings.OutputPath+filepath.Split('\\').Last());
+            IO.Write.NameExchangeList(entries, Settings.OutputPath + filepath.Split('\\').Last());
         }
 
         public static NameExchange OriginalToReference(string wikia, NameExchange name)

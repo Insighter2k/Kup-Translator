@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Kontract">
+      <HintPath>D:\tempBackup\3ds\Tools\Kuriimu-master\src\Kuriimu\bin\Debug\Kontract.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -42,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\Mode.cs" />
+    <Compile Include="Functions\Check.cs" />
     <Compile Include="Functions\Exchange.cs" />
     <Compile Include="Functions\Translate.cs" />
     <Compile Include="IO\Convert.cs" />
@@ -60,10 +65,6 @@
     <ProjectReference Include="D:\tempBackup\3ds\Tools\GodHand-master\Kakasi.Net\Kakasi.NET.Interop\Kakasi.NET.Interop.csproj">
       <Project>{67f3daa6-417d-4f5d-81c4-a191b04f917b}</Project>
       <Name>Kakasi.NET.Interop</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\tempBackup\3ds\Tools\Kuriimu-master\src\Kontract\Kontract.csproj">
-      <Project>{51e474f7-1497-4c30-bc18-c357c884b8b2}</Project>
-      <Name>Kontract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

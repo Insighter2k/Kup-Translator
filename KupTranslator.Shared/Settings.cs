@@ -11,5 +11,7 @@ namespace KupTranslator.Shared
         public static DateTime LogTime { get; set; }
 
         public static string LogPath => $@"{Environment.CurrentDirectory}\Log\";
+
+        public static string OutputPath => $@"{Environment.CurrentDirectory}\Output\";
     }
 }

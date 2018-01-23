@@ -11,57 +11,7 @@ namespace KupTranslator.Shared.Functions
 {
     public class Exchange
     {
-        public static byte[] BytesFromTargetFile(List<NameExchange> list, byte[] targetFile, bool excludeBrackets)
-        {
-            foreach (var item in list)
-            {
-                if (!string.IsNullOrEmpty(item.ReferenceName))
-                {
-                    foreach (var offset in Offsets(targetFile, item.OriginalNameBytes, excludeBrackets))
-
-                        for (int i = 0; i < item.OriginalNameBytes.Length; i++)
-                        {
-
-                            targetFile[offset + i] = (item.ReferenceNameBytes.Length - 1 >= i)
-                                ? item.ReferenceNameBytes[i]
-                                : Convert.ToByte(0);
-                        }
-                }
-            }
-
-            return targetFile;
-        }
-
-        private static IEnumerable<int> Offsets(byte[] data, byte[] toFind, bool excludeBrackets)
-        {
-            for (int i = 0; i <= data.Length - toFind.Length; ++i)
-            {
-                bool matched = true;
-
-                for (int j = 0; j < toFind.Length; ++j)
-                {
-                    if (data[i + j] != toFind[j])
-                    {
-                        matched = false;
-
-                        break;
-                    }
-
-                    if (excludeBrackets)
-                    {
-                        if (data[i + j] == toFind[j] && data[(i + j) - 1] == Encoding.ASCII.GetBytes("(")[0])
-                        {
-                            matched = false;
-
-                            break;
-                        }
-                    }
-                }
-
-                if (matched)
-                    yield return i;
-            }
-        }
+        #region Extract
 
         private static Regex regExSpanMatcher = new Regex(@"(\s*\w*([^<])<\/span>)", RegexOptions.Compiled);
         public static async Task ToReferenceNames(string sourceFile, string targetFile, string wikia, int from, int to, bool recursiveCheck, bool matchByteLength)
@@ -94,6 +44,7 @@ namespace KupTranslator.Shared.Functions
             {
                 NameExchange nameExchange = new NameExchange();
 
+                nameExchange.Encoding = Encoding.ASCII;
                 nameExchange.KupReference = entry.Name;
                 nameExchange.OriginalName = entry.OriginalText;
                 nameExchange.OriginalNameWordList = nameExchange.OriginalName.Split(' ').ToList();
@@ -153,5 +104,80 @@ namespace KupTranslator.Shared.Functions
 
             return nameExchange;
         }
+
+        #endregion
+
+        #region Inject
+
+        public static async Task OriginalWithReference(string sourceFile, string targetFile)
+        {
+            IO.Write.Log("Reading CSV-file",true);
+            var namesList = await IO.Read.CsvFile(sourceFile);
+
+            IO.Write.Log("Reading target file", true);
+            var targeFileBytes = await IO.Read.FileToByteArray(targetFile);
+
+            IO.Write.Log("Replacing values", true);
+            targeFileBytes = await Exchange.BytesFromTargetFile(namesList, targeFileBytes, true);
+
+            IO.Write.Log("Writing \"new\" target file", true);
+            IO.Write.ByteArrayToFile(targeFileBytes, targetFile);
+
+        }
+
+        public static Task<byte[]> BytesFromTargetFile(List<NameExchange> list, byte[] targetFile, bool excludeBrackets)
+        {
+            foreach (var item in list)
+            {
+                if (!string.IsNullOrEmpty(item.ReferenceName))
+                {
+                    foreach (var offset in Offsets(targetFile, item.OriginalNameBytes, excludeBrackets))
+
+                        for (int i = 0; i < item.OriginalNameBytes.Length; i++)
+                        {
+
+                            targetFile[offset + i] = (item.ReferenceNameBytes.Length - 1 >= i)
+                                ? item.ReferenceNameBytes[i]
+                                : Convert.ToByte(0);
+                        }
+                }
+            }
+
+            return Task.FromResult(targetFile);
+        }
+
+        private static IEnumerable<int> Offsets(byte[] data, byte[] toFind, bool excludeBrackets)
+        {
+            for (int i = 0; i <= data.Length - toFind.Length; ++i)
+            {
+                bool matched = true;
+
+                for (int j = 0; j < toFind.Length; ++j)
+                {
+                    if (data[i + j] != toFind[j])
+                    {
+                        matched = false;
+
+                        break;
+                    }
+
+                    if (excludeBrackets)
+                    {
+                        if (data[i + j] == toFind[j] && data[(i + j) - 1] == Encoding.ASCII.GetBytes("(")[0])
+                        {
+                            matched = false;
+
+                            break;
+                        }
+                    }
+                }
+
+                if (matched)
+                    yield return i;
+            }
+        }
+
+        #endregion
+
     }
 }
