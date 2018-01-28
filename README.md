@@ -33,13 +33,13 @@ The Exchanger uses the same cross reference option to evaluate given translated 
 
 It will create in the process a .csv-file in the output directory of the application.
 The file has the following column structure
-Kup-Entry	English Name	Length	Original Name	Length	Check Charlength
+
 - [x] Kup-Entry => Name of the kupEntry like text0001
 - [x] Original Name => Original dub name (in english)
 - [x] Length => Count of chars of original name
-- [x] Original Name => Original japanese name in romaji
+- [x] Reference Name => Original japanese name in romaji
 - [x] Length => Count of chars of original name
-- [x] Check => True: You should check the char lengths of both names, False: Original Name is not longer than English Name (Byte Length ...)
+- [x] Check => True: You should check the char lengths of both names, False: Reference Name is not longer than the Original Name (Byte Length ...)
 
 Additionally you can use a csv-file to override your target file with the changes you have made.
 
